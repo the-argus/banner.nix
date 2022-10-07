@@ -19,11 +19,10 @@
     genSystems = nixpkgs.lib.genAttrs supportedSystems;
     pkgSets = genSystems (system: import nixpkgs {inherit system;});
   in {
-    packages = genSystems (system: let
-      pkgs = pkgSets.system;
-    in {
-    });
+    # packages = genSystems (system: let
+    #   pkgs = pkgSets.system;
+    # in {
+    # });
     lib = import ./lib {inherit (nixpkgs) lib;};
-    homeManagerModules = import ./modules;
   };
 }
