@@ -1,5 +1,5 @@
 {lib, ...}: {
-  basicYamlToAttrs =
+  basicYamlToBanner =
     # this function only works for yaml with a depth of 1
     # ie. simple key-value pairs. same format of base16 and
     # banner palettes

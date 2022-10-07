@@ -1,7 +1,7 @@
 bannerlib:
 { config, lib, ... }:
 
-with config.lib.stylix.colors.withHashtag;
+with config.stylix.bannerPalette;
 
 let
   text = base05;
