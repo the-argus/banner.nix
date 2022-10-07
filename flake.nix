@@ -1,6 +1,7 @@
 {
   description = ''
-    Nix builders for home-manager modules according to banner specifications
+    Nix builders for color palettes for home-manager modules according
+    to banner specifications.
   '';
 
   inputs = {
@@ -23,5 +24,6 @@
     in {
     });
     lib = import ./lib {inherit (nixpkgs) lib;};
+    homeManagerModules = import ./modules;
   };
 }
