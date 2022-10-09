@@ -39,7 +39,7 @@
         map (line: let
           characters = removeAll [" " "\n" "\t"] (lib.strings.splitString "" line);
           rejoinedLine = builtins.concatStringsSep "" characters;
-          fixes = lib.strings.splitString ":" rejoinedLine;
+          fixes = builtins.trace rejoinedLine (lib.strings.splitString ":" rejoinedLine);
           name = builtins.elemAt fixes 0;
           value = builtins.elemAt fixes 1;
         in {
