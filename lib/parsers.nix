@@ -17,7 +17,7 @@
         # if an item in the list starts with a #, remove it
         cleanedList =
           lib.lists.foldr (next: prev: let
-            characters = removeAll [" " "\t"] (lib.strings.splitString "" next);
+            characters = removeAll ["" " " "\t"] (lib.strings.splitString "" next);
             firstChar = builtins.elemAt characters 0;
           in (
             if firstChar == "#"
@@ -38,7 +38,24 @@
       listOfAttrs =
         map (line: let
           characters = removeAll [" " "\n" "\t"] (lib.strings.splitString "" line);
-          rejoinedLine = builtins.concatStringsSep "" characters;
+          rejoinedLine =
+            (lib.lists.foldr (next: prev:
+                if prev.is_comment
+                then prev
+                else if next == "#"
+                then {
+                  inherit (prev) string;
+                  is_comment = true;
+                }
+                else {
+                  string = prev.string + next;
+                  inherit (prev) is_comment;
+                }) {
+                string = "";
+                is_comment = false;
+              }
+              characters)
+            .string;
           fixes = builtins.trace rejoinedLine (lib.strings.splitString ":" rejoinedLine);
           name = builtins.elemAt fixes 0;
           value = builtins.elemAt fixes 1;
