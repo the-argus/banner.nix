@@ -62,7 +62,7 @@
             .string;
           fixes = lib.strings.splitString ":" rejoinedLine;
           name = builtins.elemAt fixes 0;
-          value = builtins.elemAt (removeSurroundingQuotes fixes) 1;
+          value = removeSurroundingQuotes (builtins.elemAt fixes 1);
         in {
           inherit name value;
         })
