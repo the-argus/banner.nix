@@ -28,6 +28,10 @@
       in
         cleanedList;
 
+      removeSurroundingQuotes = string:
+        lib.strings.removePrefix "\""
+        (lib.strings.removeSuffix "\"" string);
+
       # get all the lines from the yaml file
       lines =
         removeComments
@@ -56,9 +60,9 @@
               }
               (lib.lists.reverseList characters))
             .string;
-          fixes = (lib.strings.splitString ":" rejoinedLine);
+          fixes = lib.strings.splitString ":" rejoinedLine;
           name = builtins.elemAt fixes 0;
-          value = builtins.elemAt fixes 1;
+          value = builtins.elemAt (removeSurroundingQuotes fixes) 1;
         in {
           inherit name value;
         })
