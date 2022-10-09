@@ -54,7 +54,7 @@
                 string = "";
                 is_comment = false;
               }
-              (lib.lists.reverse characters))
+              (lib.lists.reverseList characters))
             .string;
           fixes = builtins.trace rejoinedLine (lib.strings.splitString ":" rejoinedLine);
           name = builtins.elemAt fixes 0;
@@ -62,7 +62,7 @@
         in {
           inherit name value;
         })
-        (lib.lists.reverse lines);
+        (lib.lists.reverseList lines);
 
       attrs = builtins.listToAttrs listOfAttrs;
     in
