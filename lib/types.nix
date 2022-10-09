@@ -9,6 +9,14 @@
 in rec {
   banner = submodule {
     options = {
+      author = mkOption {
+        type = string;
+        default = "Unknown";
+      };
+      scheme = mkOption {
+        type = string;
+        default = "Unknown";
+      };
       base00 = mkColorOption {};
       base01 = mkColorOption {};
       base02 = mkColorOption {};
