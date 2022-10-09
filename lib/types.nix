@@ -1,20 +1,20 @@
 {lib, ...}: let
   inherit (lib.options) mkOption;
-  inherit (lib.types) submodule string;
+  inherit (lib.types) submodule str;
   mkColorOption = set:
     mkOption {
-      type = string;
+      type = str;
       # no default... all these need to be set
     };
 in rec {
   banner = submodule {
     options = {
       author = mkOption {
-        type = string;
+        type = str;
         default = "Unknown";
       };
       scheme = mkOption {
-        type = string;
+        type = str;
         default = "Unknown";
       };
       base00 = mkColorOption {};
