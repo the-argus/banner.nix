@@ -48,13 +48,13 @@
                   is_comment = true;
                 }
                 else {
-                  string = next + prev.string;
-                  inherit (prev) is_comment;
+                  string = prev.string + next;
+                  is_comment = false;
                 }) {
                 string = "";
                 is_comment = false;
               }
-              characters)
+              (lib.lists.reverseList characters))
             .string;
           fixes = builtins.trace rejoinedLine (lib.strings.splitString ":" rejoinedLine);
           name = builtins.elemAt fixes 0;
