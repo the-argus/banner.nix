@@ -7,7 +7,7 @@
       # helper function
       removeAll = listOfThingsToRemove: list: (
         lib.lists.foldr
-        (next: prev: lib.lists.remove next prev)
+        (prev: next: lib.lists.remove next prev)
         list # start out with the original list
         
         listOfThingsToRemove # iterate over this list
@@ -16,7 +16,7 @@
       removeComments = list: let
         # if an item in the list starts with a #, remove it
         cleanedList =
-          lib.lists.foldr (next: prev: let
+          lib.lists.foldr (prev: next: let
             characters = removeAll ["" " " "\t"] (lib.strings.splitString "" next);
             firstChar = builtins.elemAt characters 0;
           in (
@@ -39,7 +39,7 @@
         map (line: let
           characters = removeAll [" " "\n" "\t"] (lib.strings.splitString "" line);
           rejoinedLine =
-            (lib.lists.foldr (next: prev:
+            (lib.lists.foldr (prev: next:
                 if prev.is_comment
                 then prev
                 else if next == "#"
