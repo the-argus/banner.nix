@@ -3,5 +3,5 @@
 in
   (use ./math)
   // (use ./util)
-  // (use ./distances.nix)
+  // {distances = use ./distances.nix;}
   // (use ./convert.nix)

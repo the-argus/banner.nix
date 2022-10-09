@@ -7,8 +7,8 @@
 Color-processing utility functions
 
 **hasOctothorpe**
-args: ``str``
-Returns true if the first character of a string is an octothorpe (#).
+args: ``s``
+Returns true if the first character of string ``s`` is an octothorpe (#).
 
 **removeLeadingOctothorpe**
 Returns all of the characters after a leading octothorpe. Aborts evaluation
@@ -26,6 +26,10 @@ r, g, b, and a values.
 
 **toHex**
 Converts a color in any format to a hexcode color.
+
+**distances.euclidian**
+args: ``c1 c2``
+Calculates the simple euclidian distance between colors c1 and c2.
 
 ## parsers
 

@@ -1,5 +1,4 @@
-{ lib, ...}:
-{
+{lib, ...}: {
   hasOctothorpe = color: builtins.substring 0 1 color == "#";
   removeLeadingOctothorpe = color:
     if hasOctothorpe color
