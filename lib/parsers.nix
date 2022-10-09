@@ -37,7 +37,7 @@
 
       listOfAttrs =
         map (line: let
-          characters = removeAll [" " "\n" "\t"] (lib.strings.splitString "" line);
+          characters = removeAll ["" " " "\n" "\t"] (lib.strings.splitString "" line);
           rejoinedLine =
             (lib.lists.foldr (next: prev:
                 if prev.is_comment
