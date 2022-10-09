@@ -56,7 +56,7 @@
               }
               (lib.lists.reverseList characters))
             .string;
-          fixes = builtins.trace rejoinedLine (lib.strings.splitString ":" rejoinedLine);
+          fixes = (lib.strings.splitString ":" rejoinedLine);
           name = builtins.elemAt fixes 0;
           value = builtins.elemAt fixes 1;
         in {
