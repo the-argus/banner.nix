@@ -22,7 +22,7 @@
           in (
             if firstChar == "#"
             then prev
-            else prev ++ [next]
+            else [next] ++ prev
           )) []
           list;
       in
@@ -48,13 +48,13 @@
                   is_comment = true;
                 }
                 else {
-                  string = prev.string + next;
+                  string = next + prev.string;
                   inherit (prev) is_comment;
                 }) {
                 string = "";
                 is_comment = false;
               }
-              (lib.lists.reverseList characters))
+              characters)
             .string;
           fixes = builtins.trace rejoinedLine (lib.strings.splitString ":" rejoinedLine);
           name = builtins.elemAt fixes 0;
@@ -62,7 +62,7 @@
         in {
           inherit name value;
         })
-        (lib.lists.reverseList lines);
+        lines;
 
       attrs = builtins.listToAttrs listOfAttrs;
     in
