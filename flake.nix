@@ -30,7 +30,7 @@
       ...
     }: {
       options.banner.palette = lib.mkOption {
-        type = (import ./lib/types.nix).banner;
+        type = (import ./lib/types.nix {inherit (nixpkgs) lib;}).banner;
         description = ''
           A color palette in the banner format.
         '';
