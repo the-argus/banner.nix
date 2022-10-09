@@ -24,5 +24,17 @@
     # in {
     # });
     lib = import ./lib {inherit (nixpkgs) lib;};
+    module = {
+      config,
+      lib,
+      ...
+    }: {
+      options.banner.palette = lib.mkOption {
+        type = (import ./lib/types.nix).banner;
+        description = ''
+          A color palette in the banner format.
+        '';
+      };
+    };
   };
 }
