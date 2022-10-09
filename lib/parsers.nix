@@ -15,14 +15,16 @@
 
       removeComments = list: let
         # if an item in the list starts with a #, remove it
-        cleanedList = lib.lists.foldr (next: prev: let
-          characters = removeAll [" " "\t"] (lib.strings.splitString "" next);
-          firstChar = builtins.elemAt characters 0;
-        in (
-          if firstChar == "#"
-          then prev
-          else prev ++ [next]
-        ));
+        cleanedList =
+          lib.lists.foldr (next: prev: let
+            characters = removeAll [" " "\t"] (lib.strings.splitString "" next);
+            firstChar = builtins.elemAt characters 0;
+          in (
+            if firstChar == "#"
+            then prev
+            else prev ++ [next]
+          )) []
+          list;
       in
         cleanedList;
 
