@@ -42,6 +42,24 @@ in rec {
       warn = mkColorOption {};
       confirm = mkColorOption {};
       link = mkColorOption {};
+
+      pfg-highlight = mkColorOption {};
+      pfg-hialt0 = mkColorOption {};
+      pfg-hialt1 = mkColorOption {};
+      pfg-hialt2 = mkColorOption {};
+      pfg-urgent = mkColorOption {};
+      pfg-warn = mkColorOption {};
+      pfg-confirm = mkColorOption {};
+      pfg-link = mkColorOption {};
+
+      ansi00 = mkColorOption {};
+      ansi01 = mkColorOption {};
+      ansi02 = mkColorOption {};
+      ansi03 = mkColorOption {};
+      ansi04 = mkColorOption {};
+      ansi05 = mkColorOption {};
+      ansi06 = mkColorOption {};
+      ansi07 = mkColorOption {};
     };
   };
 }
