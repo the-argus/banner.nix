@@ -1,4 +1,4 @@
-{lib, ...}: {
+{lib, ...}: rec {
   evalYamlString = string: let
     removeSurroundingQuotes = string:
       lib.strings.removePrefix "\""
