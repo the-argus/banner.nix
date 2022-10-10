@@ -1,4 +1,28 @@
 {lib, ...}: {
+  evalYamlString = string: let
+    removeSurroundingQuotes = string:
+      lib.strings.removePrefix "\""
+      (lib.strings.removeSuffix "\"" string);
+    isNumeric = yaml: let 
+        numbers = {
+            "1" = 1;
+            "2" = 2;
+            "3" = 3;
+            "4" = 4;
+            "5" = 5;
+            "6" = 6;
+            "7" = 7;
+            "8" = 8;
+            "9" = 9;
+            "0" = 0;
+        };
+    in (lib.strings.asCharacters yaml);
+    eval =
+      if lib.strings.hasSuffix "\"" string && lib.strings.hasPrefix "\"" string
+      then removeSurroundingQuotes
+      else null;
+  in
+    eval string;
   basicYamlToBanner =
     # this function only works for yaml with a depth of 1
     # ie. simple key-value pairs. same format of base16 and
@@ -27,10 +51,6 @@
           list;
       in
         cleanedList;
-
-      removeSurroundingQuotes = string:
-        lib.strings.removePrefix "\""
-        (lib.strings.removeSuffix "\"" string);
 
       # get all the lines from the yaml file
       lines =

@@ -34,20 +34,10 @@ in rec {
       base0E = mkColorOption {};
       base0F = mkColorOption {};
 
-      pfg08 = mkColorOption {};
-      pfg09 = mkColorOption {};
-      pfg0A = mkColorOption {};
-      pfg0B = mkColorOption {};
-      pfg0C = mkColorOption {};
-      pfg0D = mkColorOption {};
-      pfg0E = mkColorOption {};
-      pfg0F = mkColorOption {};
-
       highlight = mkColorOption {};
       hialt0 = mkColorOption {};
       hialt1 = mkColorOption {};
       hialt2 = mkColorOption {};
-
       urgent = mkColorOption {};
       warn = mkColorOption {};
       confirm = mkColorOption {};
