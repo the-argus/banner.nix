@@ -3,24 +3,29 @@
     removeSurroundingQuotes = string:
       lib.strings.removePrefix "\""
       (lib.strings.removeSuffix "\"" string);
-    isNumeric = yaml: let 
-        numbers = {
-            "1" = 1;
-            "2" = 2;
-            "3" = 3;
-            "4" = 4;
-            "5" = 5;
-            "6" = 6;
-            "7" = 7;
-            "8" = 8;
-            "9" = 9;
-            "0" = 0;
-        };
-    in (lib.strings.asCharacters yaml);
+    isNumeric = yaml: let
+      numbers = {
+        "1" = 1;
+        "2" = 2;
+        "3" = 3;
+        "4" = 4;
+        "5" = 5;
+        "6" = 6;
+        "7" = 7;
+        "8" = 8;
+        "9" = 9;
+        "0" = 0;
+      };
+    in
+      builtins.any
+      (item: builtins.hasAttr item numbers)
+      (lib.strings.asCharacters yaml);
     eval =
       if lib.strings.hasSuffix "\"" string && lib.strings.hasPrefix "\"" string
       then removeSurroundingQuotes
-      else null;
+      else if isNumeric string
+      then lib.strings.toInt string
+      else string;
   in
     eval string;
   basicYamlToBanner =
@@ -82,7 +87,7 @@
             .string;
           fixes = lib.strings.splitString ":" rejoinedLine;
           name = builtins.elemAt fixes 0;
-          value = removeSurroundingQuotes (builtins.elemAt fixes 1);
+          value = evalYamlString (builtins.elemAt fixes 1);
         in {
           inherit name value;
         })
