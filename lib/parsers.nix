@@ -19,7 +19,7 @@
     in
       builtins.any
       (item: builtins.hasAttr item numbers)
-      (lib.strings.stringAsChars yaml);
+      (lib.strings.stringToCharacters yaml);
     eval =
       if lib.strings.hasSuffix "\"" string && lib.strings.hasPrefix "\"" string
       then removeSurroundingQuotes
