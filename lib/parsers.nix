@@ -27,7 +27,7 @@
       then lib.strings.toInt string
       else string;
   in
-    eval string;
+    eval;
   basicYamlToBanner =
     # this function only works for yaml with a depth of 1
     # ie. simple key-value pairs. same format of base16 and
