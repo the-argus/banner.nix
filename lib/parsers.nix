@@ -1,8 +1,8 @@
 {lib, ...}: rec {
   evalYamlString = string: let
-    removeSurroundingQuotes = string:
+    removeSurroundingQuotes = quotedString:
       lib.strings.removePrefix "\""
-      (lib.strings.removeSuffix "\"" string);
+      (lib.strings.removeSuffix "\"" quotedString);
     isNumeric = yaml: let
       numbers = {
         "1" = 1;
@@ -20,14 +20,14 @@
       builtins.any
       (item: builtins.hasAttr item numbers)
       (lib.strings.stringToCharacters yaml);
-    eval =
+    eval = yamlStr:
       if lib.strings.hasSuffix "\"" string && lib.strings.hasPrefix "\"" string
-      then removeSurroundingQuotes
+      then removeSurroundingQuotes yamlStr
       # else if isNumeric string
       # then lib.strings.toInt string
       else string;
   in
-    eval;
+    eval string;
   basicYamlToBanner =
     # this function only works for yaml with a depth of 1
     # ie. simple key-value pairs. same format of base16 and
