@@ -23,8 +23,8 @@
     eval =
       if lib.strings.hasSuffix "\"" string && lib.strings.hasPrefix "\"" string
       then removeSurroundingQuotes
-      else if isNumeric string
-      then lib.strings.toInt string
+      # else if isNumeric string
+      # then lib.strings.toInt string
       else string;
   in
     eval;
