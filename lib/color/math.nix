@@ -29,7 +29,7 @@ in rec {
       if builtins.typeOf decimal == "string"
       then decimal
       else if builtins.typeOf decimal == "int"
-      then "${decimal}"
+      then "${builtins.toString decimal}"
       else abort "decimalToHex does not support ${builtins.typeOf decimal}";
 
     listOfDigits =
