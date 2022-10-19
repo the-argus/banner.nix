@@ -23,6 +23,24 @@
     E = e;
     F = f;
   };
+  dec2HexDigits = rec {
+    "0" = "0";
+    "1" = "1";
+    "2" = "2";
+    "3" = "3";
+    "4" = "4";
+    "5" = "5";
+    "6" = "6";
+    "7" = "7";
+    "8" = "8";
+    "9" = "9";
+    "10" = "A";
+    "11" = "B";
+    "12" = "C";
+    "13" = "D";
+    "14" = "E";
+    "15" = "F";
+  };
 in rec {
   decimalToHex = decimal: let
     strDecimal =
@@ -32,22 +50,13 @@ in rec {
       then "${builtins.toString decimal}"
       else abort "decimalToHex does not support ${builtins.typeOf decimal}";
 
-    listOfDigits =
-      map
-      (value: hex2decDigits.${value})
-      (lib.lists.remove "" (lib.strings.splitString "" strDecimal));
-
-    finalNumber =
-      lib.lists.foldr (next: prev: {
-        index = prev.index + 1;
-        value = next * (16 * prev.index);
-      }) {
-        index = 0;
-        value = 0;
-      }
-      listOfDigits;
+    hexNumber =
+      lib.lists.foldr
+      (next: prev: (dec2HexDigits.${next} + prev))
+      ""
+      (lib.strings.splitString "." strDecimal);
   in
-    finalNumber.value;
+    hexNumber;
 
   twoDigitHexToDecimal = hex:
   # stolen straight from SenchoPens/base16.nix
