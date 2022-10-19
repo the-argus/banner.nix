@@ -32,7 +32,7 @@
 
   nixToHex = nix: let
     hexValues = builtins.mapAttrs (name: value: blib.decimalToTwoDigitHex value);
-  in "${hexValues.r}${hexValues.g}${hexvalues.b}";
+  in "${hexValues.r}${hexValues.g}${hexValues.b}";
 in rec {
   toNix = color: let
     convert =
