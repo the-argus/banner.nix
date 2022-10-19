@@ -43,20 +43,44 @@
   };
 in rec {
   decimalToHex = decimal: let
-    strDecimal =
+    intDecimal =
       if builtins.typeOf decimal == "string"
-      then decimal
+      then lib.strings.toInt decimal
       else if builtins.typeOf decimal == "int"
-      then "${builtins.toString decimal}"
+      then decimal
       else abort "decimalToHex does not support ${builtins.typeOf decimal}";
 
-    hexNumber =
-      lib.lists.foldr
-      (next: prev: (dec2HexDigits.${next} + prev))
-      ""
-      (lib.strings.splitString "." strDecimal);
+    floatToInt = float: let
+      floatStr = builtins.toString float;
+      floatStrSplit = lib.strings.splitString "." floatStr;
+      intStr = builtins.elemAt floatStrSplit 0;
+    in
+      lib.strings.toInt intStr;
+
+    hexNumber = int:
+      if builtins.typeOf int == "set"
+      then
+        # we are in the loop
+        if int.value < 16
+        then
+          # exit case, append the last digit and go
+          (dec2HexDigits.${int.value}) + int.hex
+        else
+          # we still need to loop
+          hexNumber {
+            value = floatToInt (int.value / 16);
+            hex = (dec2HexDigits.${lib.trivial.mod int.value 16}) + int.hex;
+          }
+      else if builtins.typeOf int == "int"
+      then
+        # initial state, we need to start the loop
+        hexNumber {
+          value = int;
+          hex = "";
+        }
+      else abort "wat";
   in
-    hexNumber;
+    hexNumber intDecimal;
 
   twoDigitHexToDecimal = hex:
   # stolen straight from SenchoPens/base16.nix
