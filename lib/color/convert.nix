@@ -25,7 +25,7 @@
       then hexToNix
       else (hex: hexToNix (blib.removeLeadingOctothorpe hex));
   in
-    finalString;
+    convert string;
 
   # use this one if the color is already an attrset
   passthrough = value: value;
