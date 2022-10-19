@@ -14,7 +14,7 @@
         else null)
       digits);
   in
-    builtins.listToAttrs (imap0 (index: value: {
+    builtins.listToAttrs (lib.lists.imap0 (index: value: {
       name = builtins.elemAt hexValueNames index;
       value = blib.twoDigitHexToDecimal value;
     }) (listOfTwoDigitGroups hex));
