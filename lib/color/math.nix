@@ -64,12 +64,17 @@ in rec {
         if int.value < 16
         then
           # exit case, append the last digit and go
-          (dec2HexDigits.${int.value}) + int.hex
+          (dec2HexDigits.${builtins.toString int.value}) + int.hex
         else
           # we still need to loop
           hexNumber {
             value = floatToInt (int.value / 16);
-            hex = (dec2HexDigits.${lib.trivial.mod int.value 16}) + int.hex;
+            hex =
+              (dec2HexDigits
+                .${
+                  builtins.toString (lib.trivial.mod int.value 16)
+                })
+              + int.hex;
           }
       else if builtins.typeOf int == "int"
       then
