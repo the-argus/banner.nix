@@ -10,7 +10,7 @@
     in
       lib.lists.remove null (lib.lists.imap1 (index: value:
         if lib.trivial.mod index 2 == 0
-        then "${value}${builtins.elemAt digits index-1}"
+        then "${value}${builtins.elemAt digits (index - 1)}"
         else null)
       digits);
   in
