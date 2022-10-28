@@ -11,30 +11,19 @@
   outputs = {
     self,
     nixpkgs,
-  }: let
-    supportedSystems = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    genSystems = nixpkgs.lib.genAttrs supportedSystems;
-    pkgSets = genSystems (system: import nixpkgs {inherit system;});
-  in {
-    # packages = genSystems (system: let
-    #   pkgs = pkgSets.system;
-    # in {
-    # });
+  }: rec {
     lib = import ./lib {inherit (nixpkgs) lib;};
-    module = {
-      config,
-      lib,
-      ...
-    }: {
-      options.banner.palette = lib.mkOption {
-        type = (import ./lib/types.nix {inherit (nixpkgs) lib;}).banner;
-        description = ''
-          A color palette in the banner format.
-        '';
+
+    module = let
+      bannerLib = lib;
+    in
+      {pkgs, ...}: {
+        options.banner.palette = pkgs.lib.mkOption {
+          type = bannerLib.types.banner;
+          description = ''
+            A color palette in the banner format.
+          '';
+        };
       };
-    };
   };
 }
