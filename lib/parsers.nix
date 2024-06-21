@@ -61,7 +61,7 @@
       lines =
         removeComments
         (removeAll
-          ["" "\n" " " " \n"]
+          ["" "\n" " " " \n" "---" "..."]
           (lib.strings.splitString "\n" (builtins.readFile yaml)));
 
       listOfAttrs =
